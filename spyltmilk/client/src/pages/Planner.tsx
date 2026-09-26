@@ -37,6 +37,36 @@ export const Planner: React.FC = () => {
 
     const [isDimensionsOpen, setIsDimensionsOpen] = useState(false);
 
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        if (!file.name.toLowerCase().endsWith(".obj")) {
+            showToast("Please select a valid .OBJ 3D file.");
+            return;
+        }
+
+        const objectUrl = URL.createObjectURL(file);
+        const cleanName = file.name.replace(/\.obj$/i, "");
+
+        addObject({
+            type: "furniture",
+            name: cleanName || "Custom OBJ Model",
+            position: [0, 0, 0],
+            rotation: [0, 0, 0],
+            width: 1.0,
+            depth: 1.0,
+            height: 1.0,
+            color: "#38BDF8",
+            modelUrl: objectUrl,
+            price: 999,
+            condition: "Uploaded 3D Asset"
+        });
+
+        showToast(`Loaded "${cleanName}.obj" into 3D Planner!`);
+        e.target.value = "";
+    };
+
     // Auto-load demo scenario if query param present
     useEffect(() => {
         const demoParam = searchParams.get("demo");
@@ -163,20 +193,31 @@ export const Planner: React.FC = () => {
                             )}
                         </div>
 
-                        {/* AI & Scanning Shortcuts */}
+                        {/* AI & Scanning & OBJ Upload Shortcuts */}
                         <div className="space-y-2">
                             <button
                                 onClick={() => setAiModalOpen(true)}
-                                className="w-full p-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs shadow-lg transition-all flex items-center justify-center space-x-2 active:scale-95"
+                                className="w-full p-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs shadow-lg transition-all flex items-center justify-center space-x-2 active:scale-95 cursor-pointer"
                             >
                                 <span>✨ Furnish with AI</span>
                             </button>
-                            <button
-                                onClick={() => setScanModalOpen(true)}
-                                className="w-full p-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 transition-all flex items-center justify-center space-x-2"
-                            >
-                                <span>📷 Scan Room (VGGT 3D)</span>
-                            </button>
+                            <div className="grid grid-cols-2 gap-2">
+                                <button
+                                    onClick={() => setScanModalOpen(true)}
+                                    className="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-[11px] border border-slate-700 transition-all flex items-center justify-center space-x-1 cursor-pointer"
+                                >
+                                    <span>📷 Scan Room</span>
+                                </button>
+                                <label className="p-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-[#FFDB00] font-bold text-[11px] border border-amber-500/30 transition-all flex items-center justify-center space-x-1 cursor-pointer">
+                                    <span>📦 Upload .OBJ</span>
+                                    <input
+                                        type="file"
+                                        accept=".obj"
+                                        className="hidden"
+                                        onChange={handleFileUpload}
+                                    />
+                                </label>
+                            </div>
                         </div>
 
                         {/* Furniture Catalog Palette */}
