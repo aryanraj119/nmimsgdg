@@ -34,11 +34,17 @@ export const Marketplace: React.FC = () => {
     const setCondition = useFurnitureStore((state) => state.setCondition);
     const searchQuery = useFurnitureStore((state) => state.searchQuery);
     const setSearchQuery = useFurnitureStore((state) => state.setSearchQuery);
+    const maxPrice = useFurnitureStore((state) => state.maxPrice);
+    const setMaxPrice = useFurnitureStore((state) => state.setMaxPrice);
     const getFilteredFurniture = useFurnitureStore((state) => state.getFilteredFurniture);
     const addListing = useFurnitureStore((state) => state.addListing);
 
     const addObject = useRoomStore((state) => state.addObject);
     const showToast = useUIStore((state) => state.showToast);
+
+    // Filter & Sort States (Price, Relevance, Discount, Condition)
+    const [sortBy, setSortBy] = useState<"relevance" | "price-low" | "price-high" | "discount">("relevance");
+    const [minDiscount, setMinDiscount] = useState<number>(0);
 
     // Modal States
     const [checkoutItem, setCheckoutItem] = useState<Furniture | null>(null);
@@ -72,7 +78,32 @@ export const Marketplace: React.FC = () => {
     const [newPhotoColor, setNewPhotoColor] = useState("#0058A3");
     const [listingPublished, setListingPublished] = useState(false);
 
-    const filteredItems = getFilteredFurniture();
+    const baseItems = getFilteredFurniture();
+
+    // Filter & Sort Pipeline: Price, Relevance, Discount, Condition
+    const processedItems = baseItems
+        .filter((item) => {
+            if (minDiscount > 0) {
+                if (!item.originalPrice) return false;
+                const discountPct = Math.round(((item.originalPrice - item.price) / item.originalPrice) * 100);
+                if (discountPct < minDiscount) return false;
+            }
+            return true;
+        })
+        .sort((a, b) => {
+            if (sortBy === "price-low") {
+                return a.price - b.price;
+            }
+            if (sortBy === "price-high") {
+                return b.price - a.price;
+            }
+            if (sortBy === "discount") {
+                const discountA = a.originalPrice ? (a.originalPrice - a.price) / a.originalPrice : 0;
+                const discountB = b.originalPrice ? (b.originalPrice - b.price) / b.originalPrice : 0;
+                return discountB - discountA;
+            }
+            return 0; // relevance
+        });
 
     const handleAddToRoom = (furniture: Furniture) => {
         addObject({
@@ -210,31 +241,99 @@ export const Marketplace: React.FC = () => {
                     ))}
                 </div>
 
-                {/* Sub-Filters */}
-                <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center space-x-3 text-xs font-semibold text-slate-600">
-                        <span>Condition:</span>
-                        <select
-                            value={selectedCondition}
-                            onChange={(e) => setCondition(e.target.value as FurnitureCondition | "All")}
-                            className="bg-white border border-slate-300 rounded-xl px-3 py-1.5 text-xs text-slate-800 font-bold focus:outline-none focus:ring-2 focus:ring-[#0058A3]"
-                        >
-                            {CONDITIONS.map((cond) => (
-                                <option key={cond} value={cond}>
-                                    {cond}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                {/* Interactive Filter & Sort Toolbar: Price, Relevance, Discount, Condition */}
+                <div className="bg-white rounded-2xl border border-slate-200 p-4 mb-6 shadow-sm">
+                    <div className="flex flex-wrap items-center justify-between gap-4">
+                        {/* Filter Group: Condition, Discount, Max Price */}
+                        <div className="flex flex-wrap items-center gap-3">
+                            {/* 1. Condition Filter */}
+                            <div className="flex items-center space-x-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700">
+                                <span className="text-slate-400">Condition:</span>
+                                <select
+                                    value={selectedCondition}
+                                    onChange={(e) => setCondition(e.target.value as FurnitureCondition | "All")}
+                                    className="bg-transparent font-extrabold text-slate-900 focus:outline-none cursor-pointer"
+                                >
+                                    {CONDITIONS.map((cond) => (
+                                        <option key={cond} value={cond}>
+                                            {cond}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
 
-                    <span className="text-xs font-semibold text-slate-500">
-                        Showing {filteredItems.length} items
+                            {/* 2. Discount Filter */}
+                            <div className="flex items-center space-x-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700">
+                                <span className="text-slate-400">Discount:</span>
+                                <select
+                                    value={minDiscount}
+                                    onChange={(e) => setMinDiscount(Number(e.target.value))}
+                                    className="bg-transparent font-extrabold text-slate-900 focus:outline-none cursor-pointer"
+                                >
+                                    <option value={0}>All Items</option>
+                                    <option value={10}>10%+ Off</option>
+                                    <option value={30}>30%+ Off</option>
+                                    <option value={50}>🔥 50%+ Off Deals</option>
+                                </select>
+                            </div>
+
+                            {/* 3. Price Filter (Slider & Max Price) */}
+                            <div className="flex items-center space-x-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-700">
+                                <span className="text-slate-400">Max Price:</span>
+                                <span className="font-extrabold text-[#0058A3]">₹{maxPrice.toLocaleString("en-IN")}</span>
+                                <input
+                                    type="range"
+                                    min={2000}
+                                    max={50000}
+                                    step={1000}
+                                    value={maxPrice}
+                                    onChange={(e) => setMaxPrice(Number(e.target.value))}
+                                    className="w-24 accent-[#0058A3] cursor-pointer"
+                                />
+                            </div>
+                        </div>
+
+                        {/* 4. Sort By Control (Relevance, Price Low/High, Discount) */}
+                        <div className="flex items-center space-x-2 bg-slate-900 text-white rounded-xl px-3.5 py-2 text-xs font-bold shadow-sm">
+                            <span className="text-slate-400">Sort By:</span>
+                            <select
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value as any)}
+                                className="bg-transparent text-white font-extrabold focus:outline-none cursor-pointer"
+                            >
+                                <option value="relevance" className="text-slate-900">✨ Relevance (Recommended)</option>
+                                <option value="price-low" className="text-slate-900">💵 Price: Low to High</option>
+                                <option value="price-high" className="text-slate-900">💎 Price: High to Low</option>
+                                <option value="discount" className="text-slate-900">🔥 Highest Discount %</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex items-center justify-between mb-6">
+                    <span className="text-xs font-bold text-slate-500">
+                        Showing {processedItems.length} items
                     </span>
+
+                    {(selectedCategory !== "All" || selectedCondition !== "All" || minDiscount > 0 || sortBy !== "relevance" || maxPrice < 50000) && (
+                        <button
+                            onClick={() => {
+                                setCategory("All");
+                                setCondition("All");
+                                setMinDiscount(0);
+                                setSortBy("relevance");
+                                setMaxPrice(50000);
+                            }}
+                            className="text-xs font-bold text-[#0058A3] hover:underline cursor-pointer"
+                        >
+                            Reset All Filters ↺
+                        </button>
+                    )}
                 </div>
 
                 {/* Product Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {filteredItems.map((item) => (
+                    {processedItems.map((item) => (
                         <div
                             key={item.id}
                             className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col group cursor-pointer"
