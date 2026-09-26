@@ -1,6 +1,6 @@
 import http.server
-import socketserver
 import os
+import sys
 
 PORT = 8000
 
@@ -14,11 +14,11 @@ class SPAHandler(http.server.SimpleHTTPRequestHandler):
         return super().do_GET()
 
 if __name__ == "__main__":
-    # Allow address reuse
-    socketserver.TCPServer.allow_reuse_address = True
-    with socketserver.TCPServer(("", PORT), SPAHandler) as httpd:
-        print(f"Serving SPA HTTP server on port {PORT}...")
-        try:
-            httpd.serve_forever()
-        except KeyboardInterrupt:
-            pass
+    handler = SPAHandler
+    # Use ThreadingHTTPServer for dual IPv4/IPv6 support and concurrent request handling
+    server = http.server.ThreadingHTTPServer(("0.0.0.0", PORT), handler)
+    print(f"Serving SPA HTTP server on 0.0.0.0:{PORT}...")
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        sys.exit(0)
