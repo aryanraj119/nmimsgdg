@@ -245,9 +245,15 @@ const SecondHandFurniture: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [selectedCondition, setSelectedCondition] = useState("All Conditions");
     const [maxDistance, setMaxDistance] = useState(999);
+    const [swapOnlyFilter, setSwapOnlyFilter] = useState(false);
     const [sortOption, setSortOption] = useState<"Recommended" | "PriceLow" | "PriceHigh" | "Distance">("Recommended");
     const [searchQuery, setSearchQuery] = useState("");
     const [toastMsg, setToastMsg] = useState<string | null>(null);
+
+    // Swap Credit Calculator State
+    const [calcCategory, setCalcCategory] = useState("Chairs");
+    const [calcCondition, setCalcCondition] = useState("Good");
+    const [calcEstValue, setCalcEstValue] = useState(2400);
 
     // Modal States
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -301,10 +307,11 @@ const SecondHandFurniture: React.FC = () => {
             const matchesCategory = selectedCategory === "All" || p.category === selectedCategory;
             const matchesCondition = selectedCondition === "All Conditions" || p.condition === selectedCondition;
             const matchesDistance = p.distanceKm <= maxDistance;
+            const matchesSwap = !swapOnlyFilter || p.swapAvailable;
             const matchesSearch =
                 p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                 p.description.toLowerCase().includes(searchQuery.toLowerCase());
-            return matchesCategory && matchesCondition && matchesDistance && matchesSearch;
+            return matchesCategory && matchesCondition && matchesDistance && matchesSwap && matchesSearch;
         })
         .sort((a, b) => {
             if (sortOption === "PriceLow") return a.secondHandPrice - b.secondHandPrice;
@@ -487,20 +494,34 @@ const SecondHandFurniture: React.FC = () => {
 
                 {/* CATEGORIES PILLS & FILTERS & SORT */}
                 <div className="space-y-4 pb-6 border-b border-slate-200">
-                    {/* Category Pills */}
-                    <div className="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-thin">
-                        {CATEGORIES.map((cat) => (
-                            <button
-                                key={cat}
-                                onClick={() => setSelectedCategory(cat)}
-                                className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${selectedCategory === cat
-                                        ? "bg-[#0051BA] text-white shadow-md"
-                                        : "bg-white text-slate-700 hover:bg-slate-100 border border-slate-200"
-                                    }`}
-                            >
-                                {cat === "All" ? "[ All Items ]" : `[ ${cat} ]`}
-                            </button>
-                        ))}
+                    {/* Category Pills & Swap Filter Toggle */}
+                    <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-thin flex-1">
+                            {CATEGORIES.map((cat) => (
+                                <button
+                                    key={cat}
+                                    onClick={() => setSelectedCategory(cat)}
+                                    className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${selectedCategory === cat
+                                            ? "bg-[#0051BA] text-white shadow-md"
+                                            : "bg-white text-slate-700 hover:bg-slate-100 border border-slate-200"
+                                        }`}
+                                >
+                                    {cat === "All" ? "[ All Items ]" : `[ ${cat} ]`}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Swap Available Only Toggle */}
+                        <button
+                            onClick={() => setSwapOnlyFilter(!swapOnlyFilter)}
+                            className={`px-4 py-2 rounded-full text-xs font-extrabold whitespace-nowrap transition-all cursor-pointer flex items-center space-x-1.5 border ${swapOnlyFilter
+                                    ? "bg-purple-700 text-white border-purple-700 shadow-md animate-pulse"
+                                    : "bg-purple-50 text-purple-800 border-purple-200 hover:bg-purple-100"
+                                }`}
+                        >
+                            <span>🔄 Swap Only</span>
+                            {swapOnlyFilter && <span className="bg-white text-purple-800 w-4 h-4 rounded-full flex items-center justify-center text-[10px]">✓</span>}
+                        </button>
                     </div>
 
                     {/* Filter & Sort Controls Row */}
@@ -556,6 +577,68 @@ const SecondHandFurniture: React.FC = () => {
                     </div>
                 </div>
 
+                {/* DEDICATED FURNITURE SWAP & TRADE CREDITS HUB WIDGET */}
+                <div className="my-6 p-6 rounded-3xl bg-gradient-to-r from-purple-900 via-indigo-900 to-slate-900 text-white shadow-xl border border-purple-500/30 flex flex-col lg:flex-row items-center justify-between gap-6">
+                    <div className="space-y-2 max-w-xl">
+                        <div className="inline-flex items-center space-x-1.5 bg-purple-500/20 border border-purple-400/30 px-3 py-1 rounded-full text-[10px] font-black uppercase text-purple-300 tracking-widest">
+                            <span>🔄 Furniture Swap & Trade Credits</span>
+                        </div>
+                        <h3 className="text-xl sm:text-2xl font-black">Trade Your Old Furniture & Pay Only the Difference</h3>
+                        <p className="text-xs text-purple-200 leading-relaxed">
+                            Have pre-loved furniture? Swap it directly with other verified sellers or turn it into instant Swap Credits (Your balance: <span className="text-[#FFDA1A] font-extrabold">₹5,400</span>).
+                        </p>
+                    </div>
+
+                    {/* Interactive Trade-In Estimator Box */}
+                    <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 w-full lg:w-80 space-y-3">
+                        <div className="flex items-center justify-between text-xs">
+                            <span className="font-extrabold text-white">Trade-In Value Estimator</span>
+                            <span className="text-[#FFDA1A] font-black text-sm">~₹{calcEstValue.toLocaleString("en-IN")}</span>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-2 text-xs">
+                            <select
+                                value={calcCategory}
+                                onChange={(e) => {
+                                    const cat = e.target.value;
+                                    setCalcCategory(cat);
+                                    const mult = cat === "Sofas" ? 6500 : cat === "Beds" ? 5000 : cat === "Desks" ? 3200 : 2400;
+                                    setCalcEstValue(mult);
+                                }}
+                                className="bg-slate-900 text-white border border-slate-700 rounded-xl px-2 py-1.5 text-[11px] font-bold"
+                            >
+                                <option value="Chairs">Chairs</option>
+                                <option value="Desks">Desks</option>
+                                <option value="Tables">Tables</option>
+                                <option value="Sofas">Sofas</option>
+                                <option value="Beds">Beds</option>
+                            </select>
+
+                            <select
+                                value={calcCondition}
+                                onChange={(e) => {
+                                    const cond = e.target.value;
+                                    setCalcCondition(cond);
+                                    const factor = cond === "Like New" ? 1.3 : cond === "Excellent" ? 1.1 : 0.9;
+                                    setCalcEstValue(Math.round(calcEstValue * factor));
+                                }}
+                                className="bg-slate-900 text-white border border-slate-700 rounded-xl px-2 py-1.5 text-[11px] font-bold"
+                            >
+                                <option value="Like New">Like New</option>
+                                <option value="Excellent">Excellent</option>
+                                <option value="Good">Good</option>
+                            </select>
+                        </div>
+
+                        <button
+                            onClick={() => setIsSellModalOpen(true)}
+                            className="w-full py-2 rounded-xl bg-[#FFDA1A] hover:bg-yellow-400 text-[#0051BA] font-extrabold text-xs shadow-md transition-all cursor-pointer"
+                        >
+                            🔄 Swap / Trade My Furniture Now
+                        </button>
+                    </div>
+                </div>
+
                 {/* FURNITURE CARDS GRID */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-8">
                     {filteredProducts.map((product) => (
@@ -585,8 +668,8 @@ const SecondHandFurniture: React.FC = () => {
                                         {product.condition}
                                     </span>
                                     {product.swapAvailable && (
-                                        <span className="bg-purple-600 text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-sm">
-                                            🔄 Swap Ready
+                                        <span className="bg-purple-600 text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-sm flex items-center space-x-1">
+                                            <span>🔄 Swap Available</span>
                                         </span>
                                     )}
                                 </div>
@@ -627,17 +710,36 @@ const SecondHandFurniture: React.FC = () => {
                                     </div>
                                 </div>
 
-                                {/* Quick Action Button */}
-                                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                                    <span className="text-[10px] text-slate-500 font-mono font-semibold">{product.dimensions}</span>
+                                {/* CARD ACTION BUTTONS (BUY, SWAP, DETAILS) */}
+                                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-1.5">
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setCheckoutProduct(product);
+                                        }}
+                                        className="flex-1 py-1.5 rounded-xl bg-[#0051BA] hover:bg-blue-700 text-white font-extrabold text-[11px] shadow-sm transition-all cursor-pointer"
+                                    >
+                                        🛒 Buy
+                                    </button>
+                                    {product.swapAvailable && (
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setSwapProduct(product);
+                                            }}
+                                            className="flex-1 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-extrabold text-[11px] shadow-sm transition-all cursor-pointer"
+                                        >
+                                            🔄 Swap
+                                        </button>
+                                    )}
                                     <button
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             setSelectedProduct(product);
                                         }}
-                                        className="bg-[#0051BA] hover:bg-blue-700 text-white font-extrabold text-[11px] px-3.5 py-1.5 rounded-xl shadow-sm transition-all"
+                                        className="px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] cursor-pointer"
                                     >
-                                        View Details →
+                                        Details
                                     </button>
                                 </div>
                             </div>
