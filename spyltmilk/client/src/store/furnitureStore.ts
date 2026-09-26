@@ -17,6 +17,7 @@ interface FurnitureStoreState {
     setMaxPrice: (price: number) => void;
     addToCart: (furniture: Furniture) => void;
     removeFromCart: (furnitureId: string) => void;
+    addListing: (furniture: Furniture) => void;
     getFilteredFurniture: () => Furniture[];
 }
 
@@ -32,6 +33,8 @@ export const useFurnitureStore = create<FurnitureStoreState>((set, get) => ({
     setCondition: (condition) => set({ selectedCondition: condition }),
     setSearchQuery: (query) => set({ searchQuery: query }),
     setMaxPrice: (price) => set({ maxPrice: price }),
+
+    addListing: (furniture) => set((state) => ({ catalog: [furniture, ...state.catalog] })),
 
     addToCart: (furniture) => {
         const { cart } = get();
