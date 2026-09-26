@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../components/ui/Navbar";
 import { useFurnitureStore } from "../store/furnitureStore";
@@ -39,6 +39,20 @@ export const Marketplace: React.FC = () => {
     const addObject = useRoomStore((state) => state.addObject);
     const showToast = useUIStore((state) => state.showToast);
 
+    // Modal States for Buy Now & Swap Features
+    const [checkoutItem, setCheckoutItem] = useState<Furniture | null>(null);
+    const [swapItem, setSwapItem] = useState<Furniture | null>(null);
+
+    // Checkout Form State
+    const [deliveryMethod, setDeliveryMethod] = useState<"delivery" | "pickup">("delivery");
+    const [paymentMethod, setPaymentMethod] = useState("upi");
+    const [orderConfirmedId, setOrderConfirmedId] = useState<string | null>(null);
+
+    // Swap Form State
+    const [offeredItem, setOfferedItem] = useState("Birch Desk Chair");
+    const [offeredEstValue, setOfferedEstValue] = useState(2000);
+    const [swapConfirmedCode, setSwapConfirmedCode] = useState<string | null>(null);
+
     const filteredItems = getFilteredFurniture();
 
     const handleAddToRoom = (furniture: Furniture) => {
@@ -52,6 +66,7 @@ export const Marketplace: React.FC = () => {
             depth: furniture.depth,
             height: furniture.height,
             color: furniture.color,
+            modelUrl: furniture.modelUrl,
             price: furniture.price,
             condition: furniture.condition
         });
@@ -59,8 +74,20 @@ export const Marketplace: React.FC = () => {
         navigate("/planner");
     };
 
+    const handleConfirmBuy = () => {
+        const generatedId = `ORD-${Math.floor(100000 + Math.random() * 900000)}`;
+        setOrderConfirmedId(generatedId);
+        showToast(`Order #${generatedId} confirmed!`);
+    };
+
+    const handleConfirmSwap = () => {
+        const generatedCode = `SWAP-${Math.floor(10000 + Math.random() * 90000)}`;
+        setSwapConfirmedCode(generatedCode);
+        showToast(`Swap request #${generatedCode} submitted!`);
+    };
+
     return (
-        <div className="min-h-screen bg-[#F9FAFB] text-slate-900 font-sans">
+        <div className="min-h-screen bg-[#F9FAFB] text-slate-900 font-sans pb-16">
             <Navbar />
 
             {/* Header Banner */}
@@ -74,7 +101,7 @@ export const Marketplace: React.FC = () => {
                             Second-Hand Furniture Marketplace
                         </h1>
                         <p className="text-slate-500 text-sm mt-1">
-                            Quality tested Scandinavian designs with 1:1 scale 3D preview.
+                            Buy, Sell & Swap pre-loved Scandinavian designs with instant 3D room preview.
                         </p>
                     </div>
 
@@ -104,7 +131,7 @@ export const Marketplace: React.FC = () => {
                         <button
                             key={cat}
                             onClick={() => setCategory(cat)}
-                            className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${selectedCategory === cat
+                            className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${selectedCategory === cat
                                     ? "bg-slate-900 text-white shadow-md"
                                     : "bg-white text-slate-700 hover:bg-slate-100 border border-slate-200"
                                 }`}
@@ -184,31 +211,63 @@ export const Marketplace: React.FC = () => {
                                     <p className="text-xs text-slate-600 mt-2 line-clamp-2">{item.description}</p>
                                 </div>
 
-                                {/* Dimensions & Price Footer */}
+                                {/* Dimensions, Price & Action Buttons */}
                                 <div className="pt-3 border-t border-slate-100 space-y-3">
                                     <div className="flex items-center justify-between text-xs text-slate-500 font-medium">
                                         <span>Dim: {item.width}m × {item.depth}m × {item.height}m</span>
                                         <span className="text-[10px] text-slate-400">Seller: {item.sellerName}</span>
                                     </div>
 
-                                    <div className="flex items-center justify-between">
-                                        <div>
-                                            <span className="text-xl font-extrabold text-slate-900">
-                                                ₹{item.price.toLocaleString("en-IN")}
-                                            </span>
-                                            {item.originalPrice && (
-                                                <span className="text-xs text-slate-400 line-through ml-1.5">
-                                                    ₹{item.originalPrice.toLocaleString("en-IN")}
+                                    <div className="flex flex-col space-y-2">
+                                        <div className="flex items-baseline justify-between">
+                                            <div>
+                                                <span className="text-xl font-extrabold text-slate-900">
+                                                    ₹{item.price.toLocaleString("en-IN")}
                                                 </span>
-                                            )}
+                                                {item.originalPrice && (
+                                                    <span className="text-xs text-slate-400 line-through ml-1.5">
+                                                        ₹{item.originalPrice.toLocaleString("en-IN")}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <span className="text-[10px] text-emerald-600 font-bold">✓ Verified</span>
                                         </div>
 
-                                        <button
-                                            onClick={() => handleAddToRoom(item)}
-                                            className="px-3.5 py-2 rounded-xl bg-[#0058A3] hover:bg-blue-800 text-white text-xs font-bold transition-all shadow-sm active:scale-95 flex items-center space-x-1"
-                                        >
-                                            <span>+ Add to 3D Room</span>
-                                        </button>
+                                        {/* Action Buttons: BUY NOW, SWAP, + 3D ROOM */}
+                                        <div className="grid grid-cols-3 gap-1.5 pt-1">
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setCheckoutItem(item);
+                                                    setOrderConfirmedId(null);
+                                                }}
+                                                className="py-2 rounded-xl bg-[#0058A3] hover:bg-blue-800 text-white text-[11px] font-bold transition-all shadow-sm active:scale-95 flex items-center justify-center space-x-1 cursor-pointer"
+                                            >
+                                                <span>🛒 Buy</span>
+                                            </button>
+
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setSwapItem(item);
+                                                    setSwapConfirmedCode(null);
+                                                }}
+                                                className="py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-[11px] font-bold transition-all shadow-sm active:scale-95 flex items-center justify-center space-x-1 cursor-pointer"
+                                            >
+                                                <span>🔄 Swap</span>
+                                            </button>
+
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleAddToRoom(item);
+                                                }}
+                                                className="py-2 rounded-xl bg-[#FFDB00] hover:bg-yellow-400 text-black text-[11px] font-extrabold transition-all shadow-sm active:scale-95 flex items-center justify-center space-x-1 cursor-pointer"
+                                                title="Add to 3D Room Planner"
+                                            >
+                                                <span>+ 3D</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -216,6 +275,213 @@ export const Marketplace: React.FC = () => {
                     ))}
                 </div>
             </div>
+
+            {/* MODAL 1: BUY NOW CHECKOUT MODAL */}
+            {checkoutItem && (
+                <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+                    <div className="bg-white text-slate-900 w-full max-w-md rounded-3xl shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in zoom-in-95">
+                        <div className="p-4 bg-[#0058A3] text-white flex items-center justify-between">
+                            <div>
+                                <span className="text-[10px] font-black uppercase text-[#FFDB00] block">Marketplace Checkout</span>
+                                <h3 className="font-extrabold text-base">Buy Secondhand Furniture</h3>
+                            </div>
+                            <button
+                                onClick={() => setCheckoutItem(null)}
+                                className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white font-bold text-sm flex items-center justify-center"
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        {!orderConfirmedId ? (
+                            <div className="p-6 space-y-5">
+                                <div className="flex items-center space-x-3 p-3 bg-slate-50 rounded-2xl border border-slate-200">
+                                    <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center font-bold text-[#0058A3] text-xs">
+                                        {checkoutItem.category}
+                                    </div>
+                                    <div>
+                                        <h4 className="font-extrabold text-xs text-slate-900">{checkoutItem.name}</h4>
+                                        <span className="text-sm font-black text-slate-900">₹{checkoutItem.price.toLocaleString("en-IN")}</span>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <label className="text-xs font-extrabold text-slate-700 block">Fulfillment Method</label>
+                                    <div className="grid grid-cols-2 gap-2">
+                                        <button
+                                            type="button"
+                                            onClick={() => setDeliveryMethod("delivery")}
+                                            className={`p-3 rounded-xl border text-left text-xs font-bold transition-all ${deliveryMethod === "delivery" ? "border-[#0058A3] bg-blue-50 text-[#0058A3]" : "border-slate-200 text-slate-600"}`}
+                                        >
+                                            🚚 Home Delivery (+₹299)
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setDeliveryMethod("pickup")}
+                                            className={`p-3 rounded-xl border text-left text-xs font-bold transition-all ${deliveryMethod === "pickup" ? "border-[#0058A3] bg-blue-50 text-[#0058A3]" : "border-slate-200 text-slate-600"}`}
+                                        >
+                                            🚗 Self Pickup (Free)
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <label className="text-xs font-extrabold text-slate-700 block">Payment Method</label>
+                                    <select
+                                        value={paymentMethod}
+                                        onChange={(e) => setPaymentMethod(e.target.value)}
+                                        className="w-full px-3 py-2.5 border border-slate-300 rounded-xl text-xs font-bold text-slate-900"
+                                    >
+                                        <option value="upi">📱 UPI (GPay / PhonePe / Paytm)</option>
+                                        <option value="card">💳 Credit / Debit Card</option>
+                                        <option value="cash">💵 Cash on Pickup / Delivery</option>
+                                        <option value="credits">⭐ Swap Credits Balance (₹5,400 avail)</option>
+                                    </select>
+                                </div>
+
+                                <div className="pt-3 border-t border-slate-200 space-y-1 text-xs">
+                                    <div className="flex justify-between text-slate-600 font-semibold">
+                                        <span>Item Price:</span>
+                                        <span>₹{checkoutItem.price.toLocaleString("en-IN")}</span>
+                                    </div>
+                                    <div className="flex justify-between text-slate-600 font-semibold">
+                                        <span>Fulfillment Fee:</span>
+                                        <span>{deliveryMethod === "delivery" ? "₹299" : "Free"}</span>
+                                    </div>
+                                    <div className="flex justify-between text-sm font-black text-slate-900 pt-2 border-t border-slate-100">
+                                        <span>Total Payable:</span>
+                                        <span className="text-[#0058A3]">
+                                            ₹{(checkoutItem.price + (deliveryMethod === "delivery" ? 299 : 0)).toLocaleString("en-IN")}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={handleConfirmBuy}
+                                    className="w-full py-3 rounded-2xl bg-[#0058A3] hover:bg-blue-800 text-white font-black text-xs shadow-lg transition-all cursor-pointer"
+                                >
+                                    Confirm Order & Pay Now →
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="p-6 text-center space-y-4">
+                                <span className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto font-black">
+                                    ✓
+                                </span>
+                                <h4 className="text-xl font-black text-slate-900">Order Confirmed!</h4>
+                                <p className="text-xs font-bold text-slate-600">
+                                    Order ID: <span className="font-mono text-[#0058A3]">{orderConfirmedId}</span>
+                                </p>
+                                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-left space-y-1">
+                                    <p className="font-bold text-slate-800">Fulfillment: Tomorrow, 2:00 PM</p>
+                                    <p className="text-slate-500">Seller: {checkoutItem.sellerName} (Verified)</p>
+                                </div>
+                                <button
+                                    onClick={() => setCheckoutItem(null)}
+                                    className="w-full py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs"
+                                >
+                                    Done
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
+
+            {/* MODAL 2: REQUEST SWAP MODAL */}
+            {swapItem && (
+                <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+                    <div className="bg-white text-slate-900 w-full max-w-md rounded-3xl shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in zoom-in-95">
+                        <div className="p-4 bg-purple-700 text-white flex items-center justify-between">
+                            <div>
+                                <span className="text-[10px] font-black uppercase text-purple-200 block">Furniture Swap Mechanism</span>
+                                <h3 className="font-extrabold text-base">Request Furniture Swap</h3>
+                            </div>
+                            <button
+                                onClick={() => setSwapItem(null)}
+                                className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white font-bold text-sm flex items-center justify-center"
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        {!swapConfirmedCode ? (
+                            <div className="p-6 space-y-5">
+                                <div className="p-3 bg-purple-50 rounded-2xl border border-purple-200 space-y-1">
+                                    <span className="text-[10px] font-extrabold uppercase text-purple-700 block">Target Item to Acquire</span>
+                                    <h4 className="font-black text-slate-900 text-xs">{swapItem.name}</h4>
+                                    <p className="text-xs font-bold text-purple-900">Listed Value: ₹{swapItem.price.toLocaleString("en-IN")}</p>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <label className="text-xs font-extrabold text-slate-700 block">Choose Your Furniture to Offer</label>
+                                    <select
+                                        value={offeredItem}
+                                        onChange={(e) => {
+                                            const name = e.target.value;
+                                            const val = name.includes("Chair") ? 2000 : name.includes("Desk") ? 3500 : 1500;
+                                            setOfferedItem(name);
+                                            setOfferedEstValue(val);
+                                        }}
+                                        className="w-full px-3 py-2.5 border border-slate-300 rounded-xl text-xs font-bold text-slate-900"
+                                    >
+                                        <option value="Birch Desk Chair">Birch Desk Chair (Est. Value ₹2,000)</option>
+                                        <option value="Compact Study Desk">Compact Study Desk (Est. Value ₹3,500)</option>
+                                        <option value="Wooden Side Table">Wooden Side Table (Est. Value ₹1,500)</option>
+                                    </select>
+                                </div>
+
+                                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2 text-xs">
+                                    <span className="font-extrabold text-slate-900 block">Swap Credit & Value Difference</span>
+                                    <div className="flex justify-between text-slate-600">
+                                        <span>Target Item Value:</span>
+                                        <span>₹{swapItem.price.toLocaleString("en-IN")}</span>
+                                    </div>
+                                    <div className="flex justify-between text-slate-600">
+                                        <span>Your Offered Item:</span>
+                                        <span>- ₹{offeredEstValue.toLocaleString("en-IN")}</span>
+                                    </div>
+                                    <div className="pt-2 border-t border-slate-200 flex justify-between font-black text-slate-900">
+                                        <span>Net Difference Settlement:</span>
+                                        <span className="text-purple-700">
+                                            {swapItem.price >= offeredEstValue
+                                                ? `Pay Difference: ₹${(swapItem.price - offeredEstValue).toLocaleString("en-IN")}`
+                                                : `Receive Credit: ₹${(offeredEstValue - swapItem.price).toLocaleString("en-IN")}`}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={handleConfirmSwap}
+                                    className="w-full py-3 rounded-2xl bg-purple-700 hover:bg-purple-800 text-white font-black text-xs shadow-lg transition-all cursor-pointer"
+                                >
+                                    Submit Swap Request →
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="p-6 text-center space-y-4">
+                                <span className="w-16 h-16 bg-purple-100 text-purple-700 rounded-full flex items-center justify-center text-3xl mx-auto font-black">
+                                    🔄
+                                </span>
+                                <h4 className="text-xl font-black text-slate-900">Swap Requested!</h4>
+                                <p className="text-xs font-bold text-slate-600">
+                                    Swap Code: <span className="font-mono text-purple-700">{swapConfirmedCode}</span>
+                                </p>
+                                <div className="p-3 bg-purple-50 rounded-xl border border-purple-200 text-xs text-left space-y-1">
+                                    <p className="font-bold text-purple-900">Swap Proposal Sent to {swapItem.sellerName}</p>
+                                    <p className="text-purple-700">Value Settlement: Net difference held in escrow</p>
+                                </div>
+                                <button
+                                    onClick={() => setSwapItem(null)}
+                                    className="w-full py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs"
+                                >
+                                    Close
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
