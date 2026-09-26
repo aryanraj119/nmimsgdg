@@ -264,6 +264,7 @@ export const Planner: React.FC = () => {
                                                     depth: item.depth,
                                                     height: item.height,
                                                     color: item.color,
+                                                    modelUrl: item.modelUrl,
                                                     price: item.price,
                                                     condition: item.condition
                                                 });

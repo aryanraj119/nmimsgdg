@@ -5,6 +5,8 @@ node_modules/
 models/*.obj
 models/*.rar
 models/*.zip
+*.obj
+**/*.obj
 
 # OS
 .DS_Store
