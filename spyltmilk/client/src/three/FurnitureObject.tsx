@@ -1,6 +1,5 @@
-import React, { useRef, useState, useMemo, Suspense } from "react";
+import React, { useRef, useState, useEffect, useMemo } from "react";
 import type { ThreeEvent } from "@react-three/fiber";
-import { useLoader } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import type { SceneObject } from "../types/room";
 import { useRoomStore } from "../store/roomStore";
@@ -22,10 +21,39 @@ const CustomObjModel: React.FC<{
     isColliding: boolean;
     isSelected: boolean;
 }> = ({ url, width, height, depth, color, isColliding, isSelected }) => {
-    const obj = useLoader(OBJLoader, url);
+    const [rawObj, setRawObj] = useState<THREE.Group | null>(null);
+    const [loadFailed, setLoadFailed] = useState(false);
 
-    const cloned = useMemo(() => {
-        const c = obj.clone(true);
+    useEffect(() => {
+        if (!url) return;
+        let active = true;
+
+        const loader = new OBJLoader();
+        loader.load(
+            url,
+            (loaded) => {
+                if (active) {
+                    setRawObj(loaded);
+                    setLoadFailed(false);
+                }
+            },
+            undefined,
+            (err) => {
+                console.warn(`[3D OBJ Loader] Failed to load "${url}":`, err);
+                if (active) {
+                    setLoadFailed(true);
+                }
+            }
+        );
+
+        return () => {
+            active = false;
+        };
+    }, [url]);
+
+    const processedMesh = useMemo(() => {
+        if (!rawObj) return null;
+        const c = rawObj.clone(true);
         const box = new THREE.Box3().setFromObject(c);
         const size = new THREE.Vector3();
         box.getSize(size);
@@ -59,9 +87,22 @@ const CustomObjModel: React.FC<{
         });
 
         return c;
-    }, [obj, width, height, depth, color, isColliding, isSelected]);
+    }, [rawObj, width, height, depth, color, isColliding, isSelected]);
 
-    return <primitive object={cloned} />;
+    if (loadFailed || !processedMesh) {
+        return (
+            <mesh position={[0, height / 2, 0]} castShadow receiveShadow>
+                <boxGeometry args={[width, height, depth]} />
+                <meshStandardMaterial
+                    color={isColliding ? "#EF4444" : isSelected ? "#0058A3" : color}
+                    roughness={0.4}
+                    metalness={0.1}
+                />
+            </mesh>
+        );
+    }
+
+    return <primitive object={processedMesh} />;
 };
 
 export const FurnitureObject: React.FC<FurnitureObjectProps> = ({ object, isSelected, isColliding }) => {
@@ -112,24 +153,15 @@ export const FurnitureObject: React.FC<FurnitureObjectProps> = ({ object, isSele
         >
             {/* 3D Geometry Rendering (OBJ file or fallback box geometry) */}
             {object.modelUrl ? (
-                <Suspense
-                    fallback={
-                        <mesh position={[0, height / 2, 0]}>
-                            <boxGeometry args={[width, height, depth]} />
-                            <meshStandardMaterial color={color} wireframe />
-                        </mesh>
-                    }
-                >
-                    <CustomObjModel
-                        url={object.modelUrl}
-                        width={width}
-                        height={height}
-                        depth={depth}
-                        color={color}
-                        isColliding={isColliding}
-                        isSelected={isSelected}
-                    />
-                </Suspense>
+                <CustomObjModel
+                    url={object.modelUrl}
+                    width={width}
+                    height={height}
+                    depth={depth}
+                    color={color}
+                    isColliding={isColliding}
+                    isSelected={isSelected}
+                />
             ) : (
                 <mesh position={[0, height / 2, 0]} castShadow receiveShadow>
                     <boxGeometry args={[width, height, depth]} />
