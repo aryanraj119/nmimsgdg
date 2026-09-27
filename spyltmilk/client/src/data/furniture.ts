@@ -5,7 +5,7 @@ export const DEMO_FURNITURE: Furniture[] = [
     {
         id: "obj-001-couch",
         name: "Scandinavian 3-Seater Couch (.OBJ)",
-        category: "Sofas",
+        category: "sofas",
         price: 16800,
         originalPrice: 45000,
         condition: "Like New",
@@ -20,27 +20,27 @@ export const DEMO_FURNITURE: Furniture[] = [
         description: "Preloaded high-fidelity 3D OBJ Scandinavian 3-seater couch asset.",
         color: "#38BDF8",
         material: "Premium Weave & High-Density Foam",
-        tags: ["Preloaded 3D", "OBJ Asset", "Sofas", "Living Room"]
+        tags: ["Preloaded 3D", "OBJ Asset", "sofas", "Living Room"]
     },
     {
-        id: "obj-002-bed",
-        name: "Full-Size Bed with White Linen (.OBJ)",
-        category: "Beds",
+        id: "obj-002-sofa",
+        name: "Full-Size sofa with White Linen (.OBJ)",
+        category: "sofas",
         price: 8999,
         originalPrice: 24000,
         condition: "Like New",
         width: 1.6,
         depth: 2.0,
         height: 0.9,
-        modelUrl: "/models/OBJ/Full_Size_Bed_with_White_Sheets_Black_V1.obj",
+        modelUrl: "/models/OBJ/Full_Size_sofa_with_White_Sheets_Black_V1.obj",
         sellerId: "s-202",
         sellerName: "Urban Home Reclaim",
         location: "Indiranagar, Bengaluru",
         available: true,
-        description: "Preloaded 3D OBJ full-size bed asset with detailed headboard and white sheets.",
+        description: "Preloaded 3D OBJ full-size sofa asset with detailed headboard and white sheets.",
         color: "#E2D8CE",
         material: "Solid Wood & Cotton Linen",
-        tags: ["Preloaded 3D", "OBJ Asset", "Beds", "Bedroom"]
+        tags: ["Preloaded 3D", "OBJ Asset", "sofas", "sofaroom"]
     },
     {
         id: "obj-003-wardrobe",
@@ -338,11 +338,11 @@ export const DEMO_FURNITURE: Furniture[] = [
         tags: ["Living Room", "Coffee Table"]
     },
 
-    // Sofas
+    // sofas
     {
         id: "sofa-001",
-        name: "Scandi 3-Seater Fabric Sofa - Slate Gray",
-        category: "Sofas",
+        name: "Scandi 3-Seater Fabric sofa - Slate Gray",
+        category: "sofas",
         price: 14500,
         originalPrice: 38000,
         condition: "Excellent",
@@ -356,12 +356,12 @@ export const DEMO_FURNITURE: Furniture[] = [
         description: "Deep, supportive 3-seater sofa with removable washable covers and solid birch legs.",
         color: "#4F5D65",
         material: "Woven Fabric & Birch",
-        tags: ["Living Room", "Sofa", "3-Seater"]
+        tags: ["Living Room", "sofa", "3-Seater"]
     },
     {
         id: "sofa-002",
         name: "Compact 2-Seater Loveseat - Mustard Yellow",
-        category: "Sofas",
+        category: "sofas",
         price: 8900,
         originalPrice: 22000,
         condition: "Like New",
@@ -378,11 +378,11 @@ export const DEMO_FURNITURE: Furniture[] = [
         tags: ["Loveseat", "Accent"]
     },
 
-    // Beds
+    // sofas
     {
-        id: "bed-001",
-        name: "Minimalist Platform Bed Frame (Queen)",
-        category: "Beds",
+        id: "sofa-001",
+        name: "Minimalist Platform sofa Frame (Queen)",
+        category: "sofas",
         price: 6500,
         originalPrice: 16000,
         condition: "Good",
@@ -393,10 +393,10 @@ export const DEMO_FURNITURE: Furniture[] = [
         sellerName: "Devendra Verma",
         location: "Aundh, Pune",
         available: true,
-        description: "Solid wood queen platform bed with slatted wooden base and low-profile headboard.",
+        description: "Solid wood queen platform sofa with slatted wooden base and low-profile headboard.",
         color: "#B8976C",
         material: "Sheesham Wood",
-        tags: ["Bedroom", "Queen"]
+        tags: ["sofaroom", "Queen"]
     },
 
     // Storage & Cabinets & Shelves
@@ -436,7 +436,7 @@ export const DEMO_FURNITURE: Furniture[] = [
         description: "Clean 3-drawer dresser cabinet with cutout handle grips and smooth drawer runners.",
         color: "#EAE6DF",
         material: "Engineered Wood",
-        tags: ["Bedroom", "Cabinet"]
+        tags: ["sofaroom", "Cabinet"]
     },
     {
         id: "storage-003",

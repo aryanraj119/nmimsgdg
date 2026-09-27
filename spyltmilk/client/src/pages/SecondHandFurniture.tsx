@@ -77,8 +77,8 @@ const PRODUCTS: Product[] = [
     },
     {
         id: 6,
-        name: "SÖDERHAMN 3-Seat Sectional Sofa - Samsta Dark Gray",
-        category: "Sofas & Beds",
+        name: "SÖDERHAMN 3-Seat Sectional sofa - Samsta Dark Gray",
+        category: "sofas & sofas",
         condition: "Refurbished",
         originalPrice: 899,
         secondHandPrice: 440,
@@ -101,19 +101,19 @@ const PRODUCTS: Product[] = [
     },
     {
         id: 8,
-        name: "MALM Ottoman Bed Frame - High / White (Queen)",
-        category: "Sofas & Beds",
+        name: "MALM Ottoman sofa Frame - High / White (Queen)",
+        category: "sofas & sofas",
         condition: "Like New",
         originalPrice: 549,
         secondHandPrice: 295,
         image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80",
         location: "IKEA Queens Warehouse",
-        description: "Hydraulic gas-lift storage bed frame. Clean finish with massive under-bed storage chamber.",
+        description: "Hydraulic gas-lift storage sofa frame. Clean finish with massive under-sofa storage chamber.",
         savings: 46
     }
 ];
 
-const CATEGORIES = ["All Items", "Sofas & Beds", "Tables & Desks", "Chairs & Armchairs", "Storage & Wardrobes", "Office & Study"];
+const CATEGORIES = ["All Items", "sofas & sofas", "Tables & Desks", "Chairs & Armchairs", "Storage & Wardrobes", "Office & Study"];
 const CONDITIONS = ["All Conditions", "Like New", "Gently Used", "Refurbished"];
 
 const SecondHandFurniture: React.FC = () => {

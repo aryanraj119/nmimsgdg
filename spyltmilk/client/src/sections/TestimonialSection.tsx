@@ -90,7 +90,15 @@ const TestimonialSection = () => {
                                 <video
                                     key={index}
                                     ref={(el) => setVideoRef(el, index)}
-                                    src={card.src} playsInline muted loop
+                                    src={card.src}
+                                    playsInline
+                                    muted
+                                    loop
+                                    preload="metadata"
+                                    onError={(event) => {
+                                        const target = event.currentTarget as HTMLVideoElement;
+                                        target.style.display = 'none';
+                                    }}
                                     className="size-full object-cover"
                                 />
                             </div>

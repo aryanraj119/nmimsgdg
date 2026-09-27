@@ -24,7 +24,7 @@ import SecondHandFurniture from "./pages/SecondHandFurniture";
 
 const SpyltMilkLandingPage: React.FC = () => {
     return (
-        <main className="relative min-h-screen w-full bg-[#faeade] overflow-x-hidden">
+        <main className="relative min-h-screen w-full bg-surface-muted overflow-x-hidden">
             <PreLoader />
             <Navbar />
             <HeroSection />

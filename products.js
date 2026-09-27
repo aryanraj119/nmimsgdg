@@ -53,9 +53,9 @@ const PRODUCTS_DATA = [
   {
     id: "ikea-003",
     name: "MALM",
-    category: "Bedroom",
-    subCategory: "Beds",
-    type: "Bed frame, high, with 2 storage boxes",
+    category: "sofaroom",
+    subCategory: "sofas",
+    type: "sofa frame, high, with 2 storage boxes",
     price: 24990,
     originalPrice: 27990,
     ikeaFamilyPrice: 22990,
@@ -67,13 +67,13 @@ const PRODUCTS_DATA = [
     badge: "Great Value",
     colors: ["#ffffff", "#3b2f2f", "#d2b48c"],
     selectedColor: "White stained oak veneer",
-    description: "A clean design that’s just as beautiful on all sides – place the bed freestanding or with the headboard against a wall. Generous storage drawers glide quietly.",
+    description: "A clean design that’s just as beautiful on all sides – place the sofa freestanding or with the headboard against a wall. Generous storage drawers glide quietly.",
     dimensions: "180x200 cm (King Size)",
     material: "Particleboard, Solid wood veneer, Clear acrylic lacquer",
     stockStatus: "In Stock",
     stores: ["Navi Mumbai", "Hyderabad", "Bengaluru"],
     image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80",
-    tags: ["bedroom", "bed", "storage", "king size", "malm"]
+    tags: ["sofaroom", "sofa", "storage", "king size", "malm"]
   },
   {
     id: "ikea-004",
@@ -129,8 +129,8 @@ const PRODUCTS_DATA = [
     id: "ikea-006",
     name: "FRIHETEN",
     category: "Living Room",
-    subCategory: "Sofas",
-    type: "Corner sofa-bed with storage",
+    subCategory: "sofas",
+    type: "Corner sofa-sofa with storage",
     price: 49990,
     originalPrice: 54990,
     ikeaFamilyPrice: 46990,
@@ -142,13 +142,13 @@ const PRODUCTS_DATA = [
     badge: "Bestseller",
     colors: ["#4a4a4a", "#1b303a", "#be9b7b"],
     selectedColor: "Skiftebo dark grey",
-    description: "This sofa converts quickly and easily into a spacious bed when you remove the back cushions and pull out the underframe. Large storage space under the chaise longue.",
+    description: "This sofa converts quickly and easily into a spacious sofa when you remove the back cushions and pull out the underframe. Large storage space under the chaise longue.",
     dimensions: "230x151x66 cm",
     material: "100% polyester, Solid pine, Polyurethane foam 30 kg/cu.m.",
     stockStatus: "In Stock",
     stores: ["Navi Mumbai", "Hyderabad", "Bengaluru"],
     image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80",
-    tags: ["living room", "sofa", "couch", "sofa-bed", "friheten"]
+    tags: ["living room", "sofa", "couch", "sofa-sofa", "friheten"]
   },
   {
     id: "ikea-007",
@@ -203,7 +203,7 @@ const PRODUCTS_DATA = [
   {
     id: "ikea-009",
     name: "HEMNES",
-    category: "Bedroom",
+    category: "sofaroom",
     subCategory: "Chests of Drawers",
     type: "8-drawer dresser, solid pine",
     price: 29990,
@@ -223,7 +223,7 @@ const PRODUCTS_DATA = [
     stockStatus: "In Stock",
     stores: ["Navi Mumbai", "Hyderabad", "Bengaluru"],
     image: "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=800&q=80",
-    tags: ["bedroom", "storage", "dresser", "drawers", "hemnes"]
+    tags: ["sofaroom", "storage", "dresser", "drawers", "hemnes"]
   },
   {
     id: "ikea-010",
@@ -242,7 +242,7 @@ const PRODUCTS_DATA = [
     badge: "Trending",
     colors: ["#4e6b4e", "#d8b4a0", "#f0ede6"],
     selectedColor: "Sage Green & Earthenware",
-    description: "Lifelike artificial plant that stays just as fresh-looking year after year. Paired with the iconic Scandinavian ribbed ceramic planter.",
+    description: "Lifelike artificial plant that stays just as fresh-looking year after year. Paired with the iconic Scandinavian ribsofa ceramic planter.",
     dimensions: "15 cm pot diameter, 35 cm height",
     material: "Polyethylene plastic, 100% recycled PET, Stoneware glaze",
     stockStatus: "In Stock",
@@ -309,7 +309,7 @@ const ROOM_INSPIRATIONS = [
     subtitle: "Modern aesthetic optimized for urban Indian apartments",
     image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80",
     hotspots: [
-      { productId: "ikea-006", top: "58%", left: "45%", title: "FRIHETEN Sofa-bed", price: "₹49,990" },
+      { productId: "ikea-006", top: "58%", left: "45%", title: "FRIHETEN sofa-sofa", price: "₹49,990" },
       { productId: "ikea-010", top: "42%", left: "78%", title: "FEJKA Potted Plant", price: "₹990" },
       { productId: "ikea-002", top: "35%", left: "18%", title: "BILLY Bookcase", price: "₹7,990" }
     ]

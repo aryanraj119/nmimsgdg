@@ -126,7 +126,7 @@ export const DEMO_LIVING_ROOM_SCENE: RoomState = {
             id: "obj-sofa-main",
             productId: "sofa-001",
             type: "furniture",
-            name: "Scandi 3-Seater Sofa",
+            name: "Scandi 3-Seater sofa",
             position: [0, 0, -1.2],
             rotation: [0, 0, 0],
             width: 2.1,

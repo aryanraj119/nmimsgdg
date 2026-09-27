@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from api import rooms, reconstruction, furniture
 
 app = FastAPI(
-    title="SPYLT Circular Hub - AI 3D Room Planner Backend",
+    title="IKEA Circular Hub - AI 3D Room Planner Backend",
     description="Backend API for VGGT photo reconstruction, Blender asset pipeline, and AI room layout generation.",
     version="1.0.0"
 )
@@ -25,7 +25,7 @@ app.include_router(furniture.router, prefix="/api/furniture", tags=["Furniture"]
 def read_root():
     return {
         "status": "online",
-        "service": "SPYLT AI 3D Room Planner & Reconstruction API",
+        "service": "IKEA AI 3D Room Planner & Reconstruction API",
         "vggt_enabled": True,
         "blender_mcp_ready": True
     }

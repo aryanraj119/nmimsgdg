@@ -29,7 +29,7 @@ export class MockReconstructionProvider implements RoomReconstructionProvider {
                 {
                     id: "rec-sofa-detected",
                     type: "furniture",
-                    name: "Detected Sofa (VGGT)",
+                    name: "Detected sofa (VGGT)",
                     productId: "sofa-001",
                     position: [-1.2, 0, -1.0],
                     rotation: [0, Math.PI / 12, 0],

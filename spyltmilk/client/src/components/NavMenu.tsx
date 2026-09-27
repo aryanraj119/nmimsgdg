@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import gsap from "gsap";
-import menu1 from "../assets/menu-img/menu1.png";
-import menu2 from "../assets/menu-img/menu2.png";
-import menu3 from "../assets/menu-img/menu3.png";
-import menu4 from "../assets/menu-img/menu4.png";
-import menu5 from "../assets/menu-img/menu5.png";
-import menu6 from "../assets/menu-img/menu6.png";
-import menu7 from "../assets/menu-img/menu7.webp";
+import { getImage } from "../utils/media";
 
 interface MenuItem {
     name: string;
@@ -20,16 +14,17 @@ interface NavMenuProps {
 const NavMenu: React.FC<NavMenuProps> = ({ isOpen = false }) => {
 
     const menuItems: MenuItem[] = [
-        { name: "Shop", img: menu1 },
-        { name: "Find in stores", img: menu2 },
-        { name: "About Us", img: menu3 },
-        { name: "Tasty Talks", img: menu4 },
-        { name: "Programs", img: menu5 },
-        { name: "Contacts", img: menu6 },
+        { name: "Shop", img: getImage("ikea_hero_banner.jpg") },
+        { name: "Find in stores", img: getImage("hero-img.png") },
+        { name: "About Us", img: getImage("big-img.png") },
+        { name: "Tasty Talks", img: getImage("video-img.webp") },
+        { name: "Programs", img: getImage("static-img.png") },
+        { name: "Contacts", img: getImage("Final.png") },
     ];
+    const defaultMenuImage = getImage("ikea_hero_banner.jpg");
 
     const [hovered, setHovered] = useState<string | null>(null);
-    const [currentImg, setCurrentImg] = useState<string>(menu7);
+    const [currentImg, setCurrentImg] = useState<string>(defaultMenuImage);
 
     // GSAP animation for menu open/close
     useEffect(() => {
@@ -72,7 +67,7 @@ const NavMenu: React.FC<NavMenuProps> = ({ isOpen = false }) => {
                             }}
                             onMouseLeave={() => {
                                 setHovered(null);
-                                setCurrentImg(menu7);
+                                setCurrentImg(defaultMenuImage);
                             }}
                             className={`uppercase text-8xl font-extrabold tracking-tighter transition-all duration-400 ${hovered === item.name ? "" : hovered ? "opacity-15" : ""
                                 }`}

@@ -94,7 +94,7 @@ export const Home: React.FC = () => {
                     <span className="text-xs font-bold text-[#0058A3] uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
                         Seamless 4-Step Process
                     </span>
-                    <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900">How SPYLT Circular Works</h2>
+                    <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900">How IKEA Circular Works</h2>
                     <p className="text-slate-600 text-sm">From physical space to pre-loved furniture placement in minutes.</p>
                 </div>
 

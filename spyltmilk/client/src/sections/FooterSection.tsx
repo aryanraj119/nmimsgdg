@@ -1,11 +1,11 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
-import { getImage } from '../utils/media';
-import splash from "../assets/videos/splash.mp4"
+import { getImage, getVideo } from '../utils/media';
 import { useMediaQuery } from "react-responsive";
 
 const FooterSection = () => {
+    const splash = getVideo("splash.mp4");
 
     const isMobF = useMediaQuery({
         query: "(max-width: 768px)",
@@ -39,11 +39,10 @@ const FooterSection = () => {
                     <h1 className="general-title text-center text-milk footer-title-animation lg:pb-0 pb-5">#CHUGRESPONSIBLY</h1>
                 </div>
             </div>
-            {
-                isMobF ?
-                    <img src={getImage("footer-drink.png")} alt="footer img" className="absolute object-contain top-0 mix-blend-lighten z-10 opacity-90" />
-                    :
-                    <video src={splash} autoPlay playsInline muted className="absolute object-contain top-[-4%] mix-blend-lighten z-10 opacity-90" />
+            {!isMobF && splash ?
+                <video src={splash} autoPlay playsInline muted className="absolute object-contain top-[-4%] mix-blend-lighten z-10 opacity-90" />
+                :
+                <img src={getImage("footer-drink.png")} alt="footer img" className="absolute object-contain top-0 mix-blend-lighten z-10 opacity-90" />
             }
 
 

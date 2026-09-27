@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
             <nav className="fixed top-0 left-0 z-50 flex items-center justify-between md:p-6 p-3 w-full bg-transparent">
                 <Link to="/">
                     <img
-                        src={getImage("nav-logo.svg")}
+                        src={getImage("nav-logo-MGJZgGlA.png")}
                         alt="navbar-logo"
                         className="md:w-18 w-20 nav-logo cursor-pointer"
                     />
