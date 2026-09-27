@@ -9,7 +9,7 @@
 
 1. **Frontend Installation:**
    ```bash
-   cd spyltmilk/client
+   cd IKEAINDIA/client
    npm install
    ```
 

@@ -90,7 +90,15 @@ const TestimonialSection = () => {
                                 <video
                                     key={index}
                                     ref={(el) => setVideoRef(el, index)}
-                                    src={card.src} playsInline muted loop
+                                    src={card.src}
+                                    playsInline
+                                    muted
+                                    loop
+                                    preload="metadata"
+                                    onError={(event) => {
+                                        const target = event.currentTarget as HTMLVideoElement;
+                                        target.style.display = 'none';
+                                    }}
                                     className="size-full object-cover"
                                 />
                             </div>
@@ -99,7 +107,7 @@ const TestimonialSection = () => {
                 </div>
             </div>
             <div className="absolute bottom-20 w-full h-auto py-2 flex justify-center items-center z-100">
-                <button type="button" className="bg-[#e3a458] px-10 py-4 rounded-4xl">Explore All</button>
+                <button type="button" className="bg-[#0058A3] px-10 py-4 rounded-4xl text-white">Explore All</button>
             </div>
         </section >
     );

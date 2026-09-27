@@ -58,15 +58,15 @@ const BenifitSection = () => {
             <div className="container mx-auto pt-16 mb-0 py-0">
                 <div className="col-center">
                     <p className="md:text-sm para-animation">Unlock the Advantages:
-                        <br />Explore the Key Benefits of Choosing SPYLT
+                        <br />Explore the Key Benefits of Choosing IKEA
                     </p>
                 </div>
 
                 <div className="md:mt-20 md:mb-0 mb-30 mt-30 col-center">
-                    <ClipPathTitle title={"Shelf stable"} color={"#faeade"} bg={"#c88e64"} className={"first-title"} borderColor={"#222123"} />
-                    <ClipPathTitle title={"Protein+Caffeine"} color={"#222123"} bg={"#faeade"} className={"second-title"} borderColor={"#222123"} />
-                    <ClipPathTitle title={"Infinitely recyclable"} color={"#faeade"} bg={"#7f3b2d"} className={"third-title"} borderColor={"#222123"} />
-                    <ClipPathTitle title={"Lactose free"} color={"#2e2d2f"} bg={"#fed775"} className={"fourth-title"} borderColor={"#222123"} />
+                    <ClipPathTitle title={"Affordable Design"} color={"#111111"} bg={"#E00751"} className={"first-title"} />
+                    <ClipPathTitle title={"Smart+Functional"} color={"#FFDB00"} bg={"#111111"} className={"second-title"} />
+                    <ClipPathTitle title={"Made for Everyday"} color={"#0058A3"} bg={"#FFDB00"} className={"third-title"} />
+                    <ClipPathTitle title={"Easy to Assemble"} color={"#FFDB00"} bg={"#0058A3"} className={"fourth-title"} />
                 </div>
                 <div className="md:mt-0 md:pb-0 pb-20 mt-10">
                     <p>And much more ...</p>

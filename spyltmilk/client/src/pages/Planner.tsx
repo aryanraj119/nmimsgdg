@@ -235,7 +235,7 @@ export const Planner: React.FC = () => {
                                     <option value="Chairs">Chairs</option>
                                     <option value="Desks">Desks</option>
                                     <option value="Tables">Tables</option>
-                                    <option value="Sofas">Sofas</option>
+                                    <option value="sofas">sofas</option>
                                     <option value="Storage">Storage</option>
                                 </select>
                             </div>

@@ -57,25 +57,47 @@ const FlavorSlider = () => {
                 {flavorlists.map((flavor) => (
                     <div
                         key={flavor.name}
-                        className={`relative z-30 lg:w-[50vw] w-88 lg:h-[70vh] md:w-[90vw] md:h-[50vh] h-80 flex-none ${flavor.rotation}`}
+                        className={`relative z-30 overflow-hidden lg:w-[50vw] w-88 lg:h-[70vh] md:w-[90vw] md:h-[50vh] h-80 flex-none ${flavor.rotation}`}
                     >
                         <img
-                            src={getImage(`${flavor.color}-bg.svg`)}
+                            src={getImage(
+                                flavor.color === "black"
+                                    ? "black-bg-BzNjzHrA.png"
+                                    : flavor.color === "blue"
+                                      ? "blue-bg-DgUB1FWc.png"
+                                                                            : flavor.color === "orange"
+                                                                                ? "orange-bg-B_aHOeek.png"
+                                                                                : flavor.color === "white"
+                                                                                    ? "white-bg-CyQBirNH.png"
+                                                                                    : flavor.color === "red"
+                                                                                        ? "red-bg-DWmf8wln.png"
+                                                                                        : flavor.color === "brown"
+                                                                                            ? "brown-bg-CJUahAkM.png"
+                                                                                        : `${flavor.color}-bg.svg`
+                            )}
                             alt={flavor.name}
-                            className="absolute bottom-0"
+                            className="flavor-background"
                         />
                         <img
-                            src={getImage(`${flavor.color}-drink.webp`)}
+                            src={getImage(
+                                flavor.color === "black"
+                                    ? "black-drink-ECONxGdv.png"
+                                                                        : flavor.color === "blue"
+                                                                            ? "blue-drink-BcByjEUq.png"
+                                                                            : flavor.color === "orange"
+                                                                                ? "orange-drink-CLHcDC4e.png"
+                                                                                : flavor.color === "red"
+                                                                                    ? "red-drink-CCYeDufz.png"
+                                                                                    : flavor.color === "brown"
+                                                                                        ? "brown-drink-DfeANw7-.png"
+                                                                                        : flavor.color === "white"
+                                                                                            ? "white-drink-CJC_cM_U.png"
+                                                                                    : `${flavor.color}-drink.webp`
+                            )}
                             alt={flavor.name}
                             className="drinks"
                         />
-                        <img
-                            src={getImage(`${flavor.color}-elements.webp`)}
-                            alt={flavor.name}
-                            className="elements"
-                        />
-
-                        <h1>{flavor.name}</h1>
+                        <h1 className="flavor-name">{flavor.name}</h1>
                     </div>
                 ))}
             </div>

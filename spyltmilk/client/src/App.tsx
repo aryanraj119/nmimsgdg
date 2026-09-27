@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-// SPYLT Milk Landing Page Components
+
 import Navbar from "./components/Navbar";
 import PreLoader from "./components/PreLoader";
 import HeroSection from "./sections/HeroSection";
@@ -22,9 +22,9 @@ import { RoomDetails } from "./pages/RoomDetails";
 import { ProductDetails } from "./pages/ProductDetails";
 import SecondHandFurniture from "./pages/SecondHandFurniture";
 
-const SpyltMilkLandingPage: React.FC = () => {
+const IKEAINDIALandingPage: React.FC = () => {
     return (
-        <main className="relative min-h-screen w-full bg-[#faeade] overflow-x-hidden">
+        <main className="relative min-h-screen w-full bg-surface-muted overflow-x-hidden">
             <PreLoader />
             <Navbar />
             <HeroSection />
@@ -43,8 +43,8 @@ const App: React.FC = () => {
     return (
         <BrowserRouter>
             <Routes>
-                {/* SPYLT Milk Homepage */}
-                <Route path="/" element={<SpyltMilkLandingPage />} />
+                {/* IKEA INDIA Homepage */}
+                <Route path="/" element={<IKEAINDIALandingPage />} />
                 
                 {/* 2nd Hand Furniture & 3D Room Planner Routes */}
                 <Route path="/secondhand" element={<Planner />} />
@@ -57,7 +57,7 @@ const App: React.FC = () => {
                 <Route path="/home" element={<Home />} />
                 <Route path="/legacy" element={<SecondHandFurniture />} />
                 
-                <Route path="*" element={<SpyltMilkLandingPage />} />
+                <Route path="*" element={<IKEAINDIALandingPage />} />
             </Routes>
         </BrowserRouter>
     );

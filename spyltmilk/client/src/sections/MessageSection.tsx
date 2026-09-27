@@ -75,17 +75,17 @@ const MessageSection = () => {
             <div className="container mx-auto flex-center py-28 relative">
                 <div className="w-full h-full md:px-30 ">
                     <div className="msg-wrapper">
-                        <h1 className="first-message text-wrap w-[90%]">Stir up your fearless past and</h1>
+                        <h1 className="first-message text-wrap w-[90%]">Make room for better living</h1>
                         <div className="msg-text-scroll md:mt-12 mt-0">
                             <div className="bg-[#FFDA1A] md:pb-4 pb-3 px-5" style={{ backgroundColor: "#FFDA1A" }}>
-                                <h2 className="text-[#0051BA]">Fuel Up</h2>
+                                <h2 className="text-[#0051BA]">Everyday</h2>
                             </div>
                         </div>
-                        <h1 className="second-message md:w-full w-[80%]">your future with every gulp of Perfect Protein</h1>
+                        <h1 className="second-message md:w-full w-[80%]">Design your home with smart ideas for every space</h1>
                     </div>
                     <div className="flex-center md:mt-20 mt-10">
                         <div className="max-w-md px-10 flex-center overflow-hidden">
-                            <p>Rev up your rebel spirit and feed the adventure of life with SPYLT, where you’re one chug away from epic nostalgia and fearless fun.</p>
+                            <p>Discover affordable furniture, clever storage, and smart designs made for everyday life. Create a home that feels comfortable, functional, and uniquely yours.</p>
                         </div>
                     </div>
                 </div>

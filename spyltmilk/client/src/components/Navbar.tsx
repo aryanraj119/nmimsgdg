@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
             <nav className="fixed top-0 left-0 z-50 flex items-center justify-between md:p-6 p-3 w-full bg-transparent">
                 <Link to="/">
                     <img
-                        src={getImage("nav-logo.svg")}
+                        src={getImage("nav-logo-MGJZgGlA.png")}
                         alt="navbar-logo"
                         className="md:w-18 w-20 nav-logo cursor-pointer"
                     />
@@ -52,9 +52,9 @@ const Navbar: React.FC = () => {
                 <button
                     type="button"
                     onClick={() => { window.location.href = "/secondhand.html"; }}
-                    className="px-6 py-2 bg-[#f3e2d5] hover:bg-[#e9aa56] text-[#523122] text-sm font-semibold rounded-3xl text-center cursor-pointer transition-all active:scale-95 shadow-md relative z-[9999] pointer-events-auto border-0"
+                    className="px-6 py-2 bg-[#0058A3] hover:bg-[#004b8d] text-white text-sm font-semibold rounded-3xl text-center cursor-pointer transition-all active:scale-95 shadow-md relative z-[9999] pointer-events-auto border-0"
                 >
-                    FIND STORES
+                    FIND IKEA
                 </button>
             </nav>
 

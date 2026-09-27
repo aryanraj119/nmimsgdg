@@ -157,6 +157,7 @@ const INITIAL_PRODUCTS: Product[] = [
     },
     {
         id: 6,
+<<<<<<< HEAD
         name: "MARKUS Ergonomic Mesh Workstation Desk",
         category: "Desks",
         condition: "Excellent",
@@ -179,6 +180,17 @@ const INITIAL_PRODUCTS: Product[] = [
         swapAvailable: true,
         modelUrl: "/models/OBJ/desk.obj",
         savings: 60
+=======
+        name: "SÖDERHAMN 3-Seat Sectional sofa - Samsta Dark Gray",
+        category: "sofas & sofas",
+        condition: "Refurbished",
+        originalPrice: 899,
+        secondHandPrice: 440,
+        image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80",
+        location: "IKEA Brooklyn Circular Hub",
+        description: "Deep, low-profile modular sofa with brand-new washable covers fitted by IKEA Secondhand Specialists.",
+        savings: 51
+>>>>>>> origin/login-page
     },
     {
         id: 7,
@@ -207,6 +219,7 @@ const INITIAL_PRODUCTS: Product[] = [
     },
     {
         id: 8,
+<<<<<<< HEAD
         name: "FJÄLLBO Industrial Coffee Table",
         category: "Tables",
         condition: "Good",
@@ -239,6 +252,22 @@ const DISTANCE_OPTIONS = [
     { label: "Within 5 km", value: 5 },
     { label: "Within 10 km", value: 10 }
 ];
+=======
+        name: "MALM Ottoman sofa Frame - High / White (Queen)",
+        category: "sofas & sofas",
+        condition: "Like New",
+        originalPrice: 549,
+        secondHandPrice: 295,
+        image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80",
+        location: "IKEA Queens Warehouse",
+        description: "Hydraulic gas-lift storage sofa frame. Clean finish with massive under-sofa storage chamber.",
+        savings: 46
+    }
+];
+
+const CATEGORIES = ["All Items", "sofas & sofas", "Tables & Desks", "Chairs & Armchairs", "Storage & Wardrobes", "Office & Study"];
+const CONDITIONS = ["All Conditions", "Like New", "Gently Used", "Refurbished"];
+>>>>>>> origin/login-page
 
 const SecondHandFurniture: React.FC = () => {
     const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
@@ -410,6 +439,7 @@ const SecondHandFurniture: React.FC = () => {
                         </div>
                     </div>
 
+<<<<<<< HEAD
                     {/* Header Actions */}
                     <div className="flex items-center space-x-3">
                         <button
@@ -420,6 +450,11 @@ const SecondHandFurniture: React.FC = () => {
                         </button>
                         <a href="/" className="text-xs font-bold text-blue-100 hover:text-white transition-colors">
                             ← Home
+=======
+                    <div className="flex items-center space-x-6">
+                        <a href="/" className="text-sm font-semibold hover:text-[#FFDA1A] transition-colors">
+                            ← Back to IKEA
+>>>>>>> origin/login-page
                         </a>
                     </div>
                 </div>
@@ -789,6 +824,7 @@ const SecondHandFurniture: React.FC = () => {
                 </div>
             </section>
 
+<<<<<<< HEAD
 
             {/* ========================================================= */}
             {/* MODAL 1: ITEM DETAIL PAGE / MODAL (SECTION 3)            */}
@@ -920,6 +956,19 @@ const SecondHandFurniture: React.FC = () => {
                                 </div>
                             </div>
                         </div>
+=======
+            {/* Footer */}
+            <footer className="bg-[#222123] text-white py-12 px-4">
+                <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 border-b border-gray-800 pb-8">
+                    <div className="flex items-center space-x-2">
+                        <span className="bg-[#FFDA1A] text-[#0051BA] font-extrabold text-xl px-2.5 py-0.5 rounded">IKEA</span>
+                        <span className="font-bold text-lg text-white">Circular Hub • 2nd Hand Furniture</span>
+                    </div>
+                    <div className="flex space-x-6 text-sm text-gray-400">
+                        <a href="/" className="hover:text-white transition-colors">Main IKEA Home</a>
+                        <a href="#catalog" className="hover:text-white transition-colors">Browse Catalog</a>
+                        <a href="#sell" className="hover:text-white transition-colors">Sell Furniture</a>
+>>>>>>> origin/login-page
                     </div>
                 </div>
             )}

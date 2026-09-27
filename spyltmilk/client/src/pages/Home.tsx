@@ -94,7 +94,7 @@ export const Home: React.FC = () => {
                     <span className="text-xs font-bold text-[#0058A3] uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
                         Seamless 4-Step Process
                     </span>
-                    <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900">How SPYLT Circular Works</h2>
+                    <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900">How IKEA Circular Works</h2>
                     <p className="text-slate-600 text-sm">From physical space to pre-loved furniture placement in minutes.</p>
                 </div>
 
@@ -139,10 +139,10 @@ export const Home: React.FC = () => {
             <footer className="bg-white border-t border-slate-200 py-12 px-4 text-center text-xs text-slate-500">
                 <div className="max-w-7xl mx-auto space-y-4">
                     <div className="flex items-center justify-center space-x-2">
-                        <span className="bg-slate-900 text-white font-extrabold text-lg px-2.5 py-0.5 rounded">SPYLT</span>
+                        <span className="bg-slate-900 text-white font-extrabold text-lg px-2.5 py-0.5 rounded">IKEA</span>
                         <span className="font-bold text-slate-900">Circular Marketplace & 3D Room Planner</span>
                     </div>
-                    <p>© 2026 SPYLT Furniture Platform. Designed with Scandinavian minimal visual principles.</p>
+                    <p>© 2026 IKEA Furniture Platform. Designed with Scandinavian minimal visual principles.</p>
                 </div>
             </footer>
         </div>

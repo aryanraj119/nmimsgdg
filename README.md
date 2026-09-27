@@ -1,4 +1,4 @@
-# SPYLT Circular Hub — AI 3D Room Planner & Second-Hand Furniture Marketplace
+# IKEA Circular Hub — AI 3D Room Planner & Second-Hand Furniture Marketplace
 
 Production MVP for an **AI-powered second-hand furniture marketplace with an interactive 3D Room Planner, photo-to-3D room reconstruction (VGGT), AI spatial furniture arrangement (Nemotron/Ollama), Blender asset pipeline, and future AR support**.
 
@@ -49,7 +49,7 @@ Designed with an original premium Scandinavian visual language (clean whites, ch
 ### 1. Frontend Setup & Launch
 
 ```bash
-cd spyltmilk/client
+cd IKEA/client
 npm install
 npm run dev
 ```
@@ -65,4 +65,4 @@ npm run build
 ---
 
 ## 📄 License & Attribution
-Designed for SPYLT Circular Economy & Second-Hand Furniture Platform.
+Designed for IKEA Circular Economy & Second-Hand Furniture Platform.

@@ -1,11 +1,12 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
-import { getImage } from '../utils/media';
-import splash from "../assets/videos/splash.mp4"
+import { getImage, getVideo } from '../utils/media';
 import { useMediaQuery } from "react-responsive";
+import tiktokLogo from "remixicon/icons/Logos/tiktok-fill.svg";
 
 const FooterSection = () => {
+    const splash = getVideo("splash.mp4");
 
     const isMobF = useMediaQuery({
         query: "(max-width: 768px)",
@@ -36,14 +37,13 @@ const FooterSection = () => {
 
             <div className="2xl:h-[110dvh] relative z-100 lg:pt-[8vh] pt-[8vh]">
                 <div className="overflow-hidden">
-                    <h1 className="general-title text-center text-milk footer-title-animation lg:pb-0 pb-5">#CHUGRESPONSIBLY</h1>
+                    <h1 className="general-title text-center text-INDIA footer-title-animation lg:pb-0 pb-5">#BETTERLIVING</h1>
                 </div>
             </div>
-            {
-                isMobF ?
-                    <img src={getImage("footer-drink.png")} alt="footer img" className="absolute object-contain top-0 mix-blend-lighten z-10 opacity-90" />
-                    :
-                    <video src={splash} autoPlay playsInline muted className="absolute object-contain top-[-4%] mix-blend-lighten z-10 opacity-90" />
+            {!isMobF && splash ?
+                <video src={splash} autoPlay playsInline muted className="absolute object-contain top-[-4%] mix-blend-lighten z-10 opacity-90" />
+                :
+                <img src={getImage("footer-drink.png")} alt="footer img" className="absolute object-contain top-0 mix-blend-lighten z-10 opacity-90" />
             }
 
 
@@ -55,14 +55,14 @@ const FooterSection = () => {
                     <img src={getImage("insta.svg")} alt="yt" />
                 </div>
                 <div className="social-btn">
-                    <img src={getImage("tiktok.svg")} alt="yt" />
+                    <img src={tiktokLogo} alt="TikTok" className="h-6 w-6 brightness-0 invert" />
                 </div>
             </div>
 
-            <div className="mt-30 lg:mb-32 mb-20 md:px-7 px-5 flex gap-10 md:flex-row flex-col justify-between items-start text-milk font-paragraph md:text-sm font-medium">
+            <div className="mt-30 lg:mb-32 mb-20 md:px-7 px-5 flex gap-10 md:flex-row flex-col justify-between items-start text-INDIA font-paragraph md:text-sm font-medium">
                 <div className="flex items-start md:gap-10 gap-5">
                     <div>
-                        <p>SPYLT Flavors</p>
+                        <p>IKEA Flavors</p>
                     </div>
                     <div>
                         <p>Chug Club</p>
@@ -92,7 +92,7 @@ const FooterSection = () => {
             </div>
 
             <div className="copyright-box">
-                <p>Copyright © 2025 Spylt - All Rights Reserved</p>
+                <p>Copyright © 2025 IKEA - All Rights Reserved</p>
                 <div className="flex items-center gap-7">
                     <p>Privacy Policy</p>
                     <p>Terms of Service</p>

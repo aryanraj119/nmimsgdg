@@ -1,7 +1,7 @@
 import type { RoomState } from "../types/room";
 import { ROOM_TEMPLATES } from "../data/rooms";
 
-const STORAGE_KEY = "ikea_spylt_saved_rooms_v1";
+const STORAGE_KEY = "ikea_IKEA_saved_rooms_v1";
 
 export class RoomService {
     async getSavedRooms(): Promise<RoomState[]> {
