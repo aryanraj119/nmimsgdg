@@ -35,7 +35,7 @@ const PreLoader = ({ onComplete }: { onComplete?: () => void }) => {
 
     return (
         <div className={`preloader fixed inset-0 flex flex-col items-center justify-end pb-20 z-[9999] text-text-tertiary bg-surface-raised transition-opacity duration-500 ${canHide ? "pointer-events-none opacity-0" : "opacity-100"}`}>
-            {/* <h1 className="text-7xl font-bold tracking-widest lg:mb-30">SPYLT MILK</h1> */}
+            {/* <h1 className="text-7xl font-bold tracking-widest lg:mb-30">IKEA INDIA</h1> */}
             <img src={preImg} alt="pre img" className="lg:mb-40 mb-[60%] lg:w-[20%] w-[40%]" />
             <p className="lg:text-[2rem] text-[1.5rem] tracking-wider">{progress}%</p>
             <div className="mt-2 lg:w-[12rem] w-64 h-1 bg-gray-700 rounded-full overflow-hidden">

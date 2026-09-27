@@ -1,7 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
-import { getImage } from '../utils/media';
 
 const BottomBanner = () => {
 
@@ -37,19 +36,22 @@ const BottomBanner = () => {
 
     return (
         <section className="bottom-banner 2xl:min-h-dvh lg:w-full w-[200%] h-full overflow-hidden relative bg-[#222123] flex flex-col justify-center items-start">
-            <img src={getImage("footer-dip.png")} alt="footer-img" className="w-full object-cover -translate-y-1" />
-            <img src={getImage("bottom-banner.svg")} alt="" className="h-fit mt-10" />
+            <div aria-hidden="true" className="w-full h-48 md:h-64 bg-[#FFDB00] -translate-y-1" />
+            <div aria-hidden="true" className="w-full h-32 md:h-40 mt-10 bg-[#0058A3]" />
 
             <div className="absolute w-[35rem] h-[24rem] z-100 lg:top-[30%] top-[50%] lg:left-20 left-10">
                 <div className="relative inline-block md:translate-y-20 z-100">
-                    <div className="general-title relative flex flex-col justify-center items-center gap-24">
+                    <div className="general-title relative flex flex-col justify-center items-center gap-6">
                         <div className="overflow-hidden place-self-start">
-                            <h1 className="text-white b-title">Right Around</h1>
+                            <h1 className="text-white b-title">Make Room</h1>
                         </div>
-                        <div className="rotate-[3deg]  rolling-animation text-nowrap md:-mt-28 -mt-24 place-self-start">
+                        <div className="rotate-[3deg] rolling-animation text-nowrap place-self-start">
                             <div className="bg-[#fed775] pb-4 md:pt-0 pt-3 md:px-5 px-3 inline-block">
-                                <h2 className="text-[#523122]">The Corner</h2>
+                                <h2 className="text-[#523122]">For</h2>
                             </div>
+                        </div>
+                        <div className="overflow-hidden place-self-start">
+                            <h1 className="text-white b-title">Everyday Living</h1>
                         </div>
                     </div>
                     <div className="lg:mt-10 mt-2 text-[#f3e2d5] text-sm font-paragraph flex flex-col lg:gap-14 gap-8">

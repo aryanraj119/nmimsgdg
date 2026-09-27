@@ -107,7 +107,7 @@ const TestimonialSection = () => {
                 </div>
             </div>
             <div className="absolute bottom-20 w-full h-auto py-2 flex justify-center items-center z-100">
-                <button type="button" className="bg-[#e3a458] px-10 py-4 rounded-4xl">Explore All</button>
+                <button type="button" className="bg-[#0058A3] px-10 py-4 rounded-4xl text-white">Explore All</button>
             </div>
         </section >
     );

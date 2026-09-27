@@ -1,15 +1,9 @@
 import { useGSAP } from "@gsap/react"
-import { nutrientLists } from "../constants/details"
 import gsap from "gsap"
 import { SplitText } from "gsap/all"
-import { useMediaQuery } from "react-responsive"
 import { getImage } from '../utils/media';
 
 const NutritionSection = () => {
-
-    const isMobile = useMediaQuery({
-        query: "(max-width: 768px)",
-    });
 
     useGSAP(() => {
         document.fonts.ready.then(() => {
@@ -57,38 +51,18 @@ const NutritionSection = () => {
                             </div>
                             <div className="nutrition-text-scroll place-self-start">
                                 <div className="bg-yellow-brown pb-5 md:pt-0 pt-3 md:px-5 px-3 inline-block">
-                                    <h2 className="text-milk-yellow rolling">Furnitures</h2>
+                                    <h2 className="text-INDIA-yellow rolling">Furnitures</h2>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="flex md:justify-end items-start md:translate-y-20 translate-y-10">
                         <div className="md:max-w-xs w-[70%]">
-                            <p className="text-sm md:text-right text-balance font-paragraph para-animate">Milk contains a wide array of nutrients including vitamins, minerals, and proteins and that is lactose free.</p>
+                            <p className="text-sm md:text-right text-balance font-paragraph para-animate">Your home deserves a wide range of smart solutions including furniture, storage, and décor made for everyday living.</p>
                         </div>
                     </div>
                 </div>
 
-                <div className="nutrition-box">
-                    <div className="list-wrapper">
-                        {
-                            (isMobile ? nutrientLists.slice(0, 3) : nutrientLists).map((nutrients, index, arr) => (
-                                <div key={index} className="relative flex-1 col-center">
-                                    <div className="">
-                                        <p className="md:text-sm font-paragraph">{nutrients.label}</p>
-                                        <p className="font-paragraph text-[10px] mt-[6px]">up to</p>
-                                        <p className="text-2xl md:text-2xl tracking-tighter font-bold">{nutrients.amount}</p>
-                                    </div>
-                                    {
-                                        index !== arr.length - 1 && (
-                                            <div className="spacer-border" />
-                                        )
-                                    }
-                                </div>
-                            ))
-                        }
-                    </div>
-                </div>
             </div>
         </section>
     )

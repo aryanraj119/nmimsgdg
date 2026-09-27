@@ -170,7 +170,7 @@ const SecondHandFurniture: React.FC = () => {
 
                     <div className="flex items-center space-x-6">
                         <a href="/" className="text-sm font-semibold hover:text-[#FFDA1A] transition-colors">
-                            ← Back to Spylt
+                            ← Back to IKEA
                         </a>
                         <div className="relative cursor-pointer bg-white/10 hover:bg-white/20 p-2.5 rounded-full transition-colors">
                             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -402,7 +402,7 @@ const SecondHandFurniture: React.FC = () => {
                         <span className="font-bold text-lg text-white">Circular Hub • 2nd Hand Furniture</span>
                     </div>
                     <div className="flex space-x-6 text-sm text-gray-400">
-                        <a href="/" className="hover:text-white transition-colors">Main Spylt Home</a>
+                        <a href="/" className="hover:text-white transition-colors">Main IKEA Home</a>
                         <a href="#catalog" className="hover:text-white transition-colors">Browse Catalog</a>
                         <a href="#sell" className="hover:text-white transition-colors">Sell Furniture</a>
                     </div>

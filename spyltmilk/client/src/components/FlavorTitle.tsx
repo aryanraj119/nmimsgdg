@@ -46,31 +46,6 @@ const FlavorTitle = () => {
             });
         });
 
-        //Title Animation
-        if (window.matchMedia("(min-width: 1025px)").matches) {
-            const titleTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: ".flavor-section",
-                    start: "top top",
-                    end: "bottom 80%",
-                    scrub: true,
-                },
-            });
-
-            titleTl
-                .to(".first-text-split", {
-                    xPercent: -30,
-                    ease: "power1.inOut",
-                })
-                .to(".flavor-text-scroll", {
-                    xPercent: -22,
-                    ease: "power1.inOut",
-                }, "<")
-                .to(".second-text-split", {
-                    xPercent: -10,
-                    ease: "power1.inOut",
-                }, "<");
-        }
     });
 
     return (
@@ -81,7 +56,7 @@ const FlavorTitle = () => {
 
             <div className="flavor-text-scroll">
                 <div className="bg-mid-brown pb-5 2xl:pt-0 pt-3 2xl:px-5 px-3">
-                    <h2 className="text-milk">Everyday</h2>
+                    <h2 className="text-INDIA">Everyday</h2>
                 </div>
             </div>
 

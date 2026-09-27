@@ -2,7 +2,7 @@
 
 ## Overview
 
-The SPYLT Circular platform follows a clean, modular, unidirectional architecture separating 3D graphics, state management, AI reasoning, and reconstruction services.
+The IKEA Circular platform follows a clean, modular, unidirectional architecture separating 3D graphics, state management, AI reasoning, and reconstruction services.
 
 ```text
 USER

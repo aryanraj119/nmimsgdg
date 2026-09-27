@@ -139,10 +139,10 @@ export const Home: React.FC = () => {
             <footer className="bg-white border-t border-slate-200 py-12 px-4 text-center text-xs text-slate-500">
                 <div className="max-w-7xl mx-auto space-y-4">
                     <div className="flex items-center justify-center space-x-2">
-                        <span className="bg-slate-900 text-white font-extrabold text-lg px-2.5 py-0.5 rounded">SPYLT</span>
+                        <span className="bg-slate-900 text-white font-extrabold text-lg px-2.5 py-0.5 rounded">IKEA</span>
                         <span className="font-bold text-slate-900">Circular Marketplace & 3D Room Planner</span>
                     </div>
-                    <p>© 2026 SPYLT Furniture Platform. Designed with Scandinavian minimal visual principles.</p>
+                    <p>© 2026 IKEA Furniture Platform. Designed with Scandinavian minimal visual principles.</p>
                 </div>
             </footer>
         </div>

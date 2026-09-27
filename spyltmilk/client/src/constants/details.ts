@@ -10,11 +10,6 @@ interface Flavor {
     rotation: string;
 }
 
-interface Nutrient {
-    label: string;
-    amount: string;
-}
-
 interface Card {
     src: any;
     rotation: string;
@@ -26,44 +21,35 @@ interface Card {
 // Flavor list
 const flavorlists: Flavor[] = [
     {
-        name: "sofa",
+        name: "BED",
         color: "brown",
         rotation: "md:rotate-[-8deg] rotate-0",
     },
     {
-        name: "Stawberry Milk",
+        name: "TABLE",
         color: "red",
         rotation: "md:rotate-[8deg] rotate-0",
     },
     {
-        name: "Cookies & Cream",
+        name: "CUBBOARD",
         color: "blue",
         rotation: "md:rotate-[-8deg] rotate-0",
     },
     {
-        name: "Peanut Butter Chocolate",
+        name: "SOFA",
         color: "orange",
         rotation: "md:rotate-[8deg] rotate-0",
     },
     {
-        name: "Vanilla Milkshake",
+        name: "FLOOR LAMP",
         color: "white",
         rotation: "md:rotate-[-8deg] rotate-0",
     },
     {
-        name: "Max sofa",
+        name: "BOOKSHELF",
         color: "black",
         rotation: "md:rotate-[8deg] rotate-0",
     },
-];
-
-// Nutrient list
-const nutrientLists: Nutrient[] = [
-    { label: "Potassium", amount: "245mg" },
-    { label: "Calcium", amount: "500mg" },
-    { label: "Vitamin A", amount: "176mcg" },
-    { label: "Vitamin D", amount: "5mcg" },
-    { label: "Iron", amount: "1mg" },
 ];
 
 // Cards list
@@ -117,4 +103,4 @@ const cards: Card[] = [
     },
 ];
 
-export { flavorlists, nutrientLists, cards };
+export { flavorlists, cards };

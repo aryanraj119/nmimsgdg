@@ -21,7 +21,7 @@ export const Navbar: React.FC = () => {
                 {/* Brand Logo */}
                 <Link to="/" className="flex items-center space-x-3 group">
                     <span className="bg-slate-900 text-white font-extrabold text-2xl px-3.5 py-1 rounded-xl tracking-tighter shadow-md group-hover:bg-[#0058A3] transition-colors">
-                        SPYLT
+                        IKEA
                     </span>
                     <div className="flex flex-col">
                         <span className="text-lg font-bold tracking-tight text-slate-900 leading-none">
